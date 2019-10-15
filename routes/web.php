@@ -11,7 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('twitter', 'TwitterController@index');
+Route::get('/', 'TwitterController@index');
+// ログインURL
+Route::get('auth/twitter', 'Auth\TwitterController@redirectToProvider');
+// コールバックURL
+Route::get('auth/twitter/callback', 'Auth\TwitterController@handleProviderCallback');
+// ログアウトURL
+Route::get('auth/twitter/logout', 'Auth\TwitterController@logout');
