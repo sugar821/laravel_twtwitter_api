@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+use Auth;
+use App\User;
 use App\Http\Controllers\Controller;
 use Socialite;
 
@@ -20,15 +21,19 @@ class TwitterController extends Controller
         } catch (Exception $e) {
             return redirect('auth/twitter');
         }
+        // dd($twitterUser);
         // 各自ログイン処理
         // 例
-        // $user = User::where('auth_id', $twitterUser->id)->first();
-        // if (!$user) {
-        //     $user = User::create([
-        //         'auth_id' => $twitterUser->id
-        //   ]);
-        // }
-        // Auth::login($user);
+        $user = User::where('twitter_id', $twitterUser->id)->first();
+        // dd($user);
+        if (!$user) {
+            $user = User::create([
+                'name' => $twitterUser->name,
+                'twitter_id' => $twitterUser->id,
+                'avatar'=>$twitterUser->avatar_original
+          ]);
+        }
+        Auth::login($user);
         return redirect('/');
     }
 
