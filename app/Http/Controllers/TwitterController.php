@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Abraham\TwitterOAuth\TwitterOAuth;
+use Auth;
+use App\User;
+use App\Tweet;
 
 class TwitterController extends Controller
 {
@@ -22,8 +25,29 @@ class TwitterController extends Controller
         return view('search');
     }
 
-    public function search_word(Request $request)
-    {
+    // public function search_word(Request $request)
+    // {
+    //     // 検索ワードの取得
+    //     $search_word = $request->search_word;
+    //     // 検索結果の取得
+    //     $result = \Twitter::get('search/tweets', array('q' => $search_word, 'count' => 50));
+    //     // object->arrayへの変換
+    //     $result_to_array = json_decode(json_encode($result), true);
+    //     // 取得データにはsearch_memetadataという不要データが含まれているのでその対応。
+    //     // 新しく配列作成、statusesを代入する。
+    //     $result = array();
+    //     $result = $result_to_array["statuses"];
+        
+    //     $tweet_temp = DB::insert( DB::raw( "CREATE TEMPORARY TABLE tweet_temp") );
+
+    //     // dd($result);
+    //     return view('search', [
+    //         "result" => $result
+    //     ]);
+    // }
+
+    public function search_word(Request $request){
+
         // 検索ワードの取得
         $search_word = $request->search_word;
         // 検索結果の取得
@@ -34,10 +58,21 @@ class TwitterController extends Controller
         // 新しく配列作成、statusesを代入する。
         $result = array();
         $result = $result_to_array["statuses"];
-        
-        // dd($result);
-        return view('search', [
-            "result" => $result
+
+        // $user = Auth::user();
+        // dd($user->id);
+        foreach($result as $tweet){        
+            $tweets =  Tweet::create([
+            'tweet_id'=>$tweet["id"],
+            'tweet_user'=>$tweet["user"]["name"],
+            'tweet_avater'=>$tweet["user"]["profile_image_url_https"],
+            'tweet_body'=>$tweet["text"]
+            ]);
+        }
+        $tweets = Tweet::paginate(10);
+        // dd($tweets);
+        return view('search',[
+            'tweets'=>$tweets
         ]);
     }
 }    
