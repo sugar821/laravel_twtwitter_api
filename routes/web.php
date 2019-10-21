@@ -12,6 +12,8 @@
 */
 
 Route::get('/', 'TwitterController@index');
+Route::get('/search', 'TwitterController@search');
+Route::post('/search', 'TwitterController@search_word');
 // ログインURL
 Route::get('auth/twitter', 'Auth\TwitterController@redirectToProvider');
 // コールバックURL

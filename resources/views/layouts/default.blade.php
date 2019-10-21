@@ -29,6 +29,9 @@
       <li class="nav-item">
         <a class="nav-link" href="/auth/twitter/logout">logout</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ action('TwitterController@search') }}">search</a>
+      </li>
     </ul>
   </div>
 </nav>
