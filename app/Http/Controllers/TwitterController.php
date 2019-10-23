@@ -41,4 +41,18 @@ class TwitterController extends Controller
             "result" => $result
         ]);
     }
+
+    public function review($tweet){  
+
+        return view('review')->with('tweet',$tweet);
+    }
+
+    public function post_review(){
+        $review =  Review::create([
+        'tweet_id'=>$tweet["id"],
+        'tweet_user'=>$tweet["user"]["name"],
+        'tweet_avater'=>$tweet["user"]["profile_image_url_https"],
+        'tweet_body'=>$tweet["text"]
+        ]);  
+    }
 }    
