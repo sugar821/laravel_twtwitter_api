@@ -20,3 +20,5 @@ Route::get('auth/twitter', 'Auth\TwitterController@redirectToProvider');
 Route::get('auth/twitter/callback', 'Auth\TwitterController@handleProviderCallback');
 // ログアウトURL
 Route::get('auth/twitter/logout', 'Auth\TwitterController@logout');
+
+Route::get('/tweets/{tweet}','TwitterController@show');

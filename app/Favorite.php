@@ -8,8 +8,13 @@ class Favorite extends Model
 {
     //書き込みができるようにする
     protected $fillable = ["favorite"];
-    //comment->post
-    // public function post(){
-    //     return $this->belongsTo('App\Post');
-    //}
+    
+    //favorite->tweet
+    public function tweet(){
+        return $this->belongsTo('App\Tweet');
+    }
+    //favorite->user
+    public function user(){
+        return $this->belongsTo('App\User');
+    }
 }
