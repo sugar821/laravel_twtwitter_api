@@ -15,7 +15,7 @@
                 <div class="media">
                     <img src={{ $tweet["user"]["profile_image_url_https"] }} class="rounded-circle mr-4">
                     <div class="media-body">
-                      <p>{{ date('Y/m/d', strtotime($tweet["created_at"])) }}</p>
+                      <p>{{ date('Y/m/d H:i', strtotime($tweet["created_at"])) }}</p>
                       <p>{{ $tweet["user"]["name"] }}</p>
                       <p>{{ $tweet["text"] }}</p>
                     </div>

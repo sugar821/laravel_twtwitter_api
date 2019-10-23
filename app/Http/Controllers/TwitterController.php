@@ -27,7 +27,8 @@ class TwitterController extends Controller
         // 検索ワードの取得
         $search_word = $request->search_word;
         // 検索結果の取得
-        $result = \Twitter::get('search/tweets', array('q' => $search_word, 'count' => 50));
+        $result = \Twitter::get('search/tweets', array('q' => $search_word, 'count' => 50, 'exclude'=> "retweets","result_type"=> "recent"));
+        
         // object->arrayへの変換
         $result_to_array = json_decode(json_encode($result), true);
         // 取得データにはsearch_memetadataという不要データが含まれているのでその対応。
