@@ -8,12 +8,13 @@
         <input type="text" name="search_word" placeholder="enter hashtag!">
         <input type="submit" value="search">
     </form>
-  @if(isset($result))
-    @foreach($result as $tweet)
-        <div class="card mb-2 mx-5">
+  {{-- 変数の存在確認、ないとエラーになる　--}}  
+  @if(isset($tweets))
+    @foreach($tweets as $tweet)
+    <div class="card mb-2 mx-5">
             <div class="card-body">
                 <div class="media">
-                    <img src={{ $tweet["user"]["profile_image_url_https"] }} class="rounded-circle mr-4">
+                    <img src={{$tweet->tweet_avater}} class="rounded-circle mr-4">
                     <div class="media-body">
                       <p>{{ date('Y/m/d H:i', strtotime($tweet["created_at"])) }}</p>
                       <p>{{ $tweet["user"]["name"] }}</p>
@@ -30,8 +31,10 @@
             </div>
         </div>  
     @endforeach
-  @else
-    <p>no result</p>
-  @endif
-    
+    {{-- $tweets->links() --}}
+    {{-- 検索結果が0の場合、メッセージ出力する　--}}  
+    @if(count($tweets)==0)
+      <p>no result</p>
+    @endif
+  @endif    
 @endsection
