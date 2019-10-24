@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Review extends Model
 {
     //書き込みができるようにする
-    protected $fillable = ["body"];
+    protected $fillable = ["user_id","tweet_id","body"];
 
     //review->tweet
     public function tweet(){

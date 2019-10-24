@@ -14,7 +14,7 @@
 <body>
 <!-- header -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-  <a class="navbar-brand" href="#">Navbar</a>
+  <a class="navbar-brand" href="#">TITLE</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -26,12 +26,17 @@
       <li class="nav-item">
         <a class="nav-link" href="/auth/twitter">login</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/auth/twitter/logout">logout</a>
+      @if( Auth::check() )
+        <li class="nav-item">
+          <a class="nav-link" href="/auth/twitter/logout">logout</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ action('TwitterController@search') }}">search</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ action('TwitterController@show_review') }}">review</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ action('TwitterController@search') }}">search</a>
-      </li>
+      @endif
     </ul>
   </div>
 </nav>

@@ -17,14 +17,14 @@ class CreateReviewsTable extends Migration
             $table->bigIncrements('id');
             $table->text('body');
             $table->integer('tweet_id');
-            $table
-                ->foreign('tweet_id')
-                ->references('tweet_id')->on('tweet')
-                ->onDelete('cascade');
+            // $table
+            //     ->foreign('tweet_id')
+            //     ->references('tweet_id')->on('tweets')
+            //     ->onDelete('cascade');
             $table->integer('user_id');
             $table
                 ->foreign('user_id')
-                ->references('id')->on('user')
+                ->references('id')->on('users')
                 ->onDelete('cascade');
             $table->timestamps();
         });

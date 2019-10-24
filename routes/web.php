@@ -10,5 +10,6 @@ Route::get('auth/twitter/callback', 'Auth\TwitterController@handleProviderCallba
 // ログアウトURL
 Route::get('auth/twitter/logout', 'Auth\TwitterController@logout');
 // review作成
-Route::get('/review/{tweet}','TwitterController@review');
-Route::post('review','TwitterController@post_review');
+Route::get('review/{tweet}','TwitterController@review');
+Route::post('review/{tweet}','TwitterController@post_review');
+Route::get('/show_review', 'TwitterController@show_review');

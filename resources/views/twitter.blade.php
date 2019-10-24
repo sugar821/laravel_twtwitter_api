@@ -15,8 +15,7 @@
             </div>
             <div class="card-footer bg-white border-top-0">
                 <div class="d-flex flex-row justify-content-end">
-                    <div class="mr-5"><i class="far fa-comment text-secondary"></i></div>
-                    <div class="mr-5"><i class="fas fa-retweet text-secondary"></i></div>
+                    <div class="mr-5"><a href="{{ action('TwitterController@review', $tweet->id) }}"<i class="far fa-comment text-secondary"></i></a></div>
                     <div class="mr-5"><i class="far fa-heart text-secondary"></i></div>
                 </div>
             </div>

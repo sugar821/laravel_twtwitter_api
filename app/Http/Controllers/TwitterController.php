@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Abraham\TwitterOAuth\TwitterOAuth;
 use Auth;
-use App\User;
+use App\Review;
 use App\Tweet;
-use Illuminate\Support\Facades\DB;
+
 class TwitterController extends Controller
 {
     public function index(Request $request)
@@ -16,7 +16,6 @@ class TwitterController extends Controller
         //ツイートを50件取得
         $result = \Twitter::get('statuses/home_timeline', array("count" => 50));
         // dd($result);
-        //ViewのTwitter.blade.phpに渡す
         return view('twitter', [
             "result" => $result
         ]);
@@ -25,13 +24,8 @@ class TwitterController extends Controller
         return view('search');
     }
 
-    public function show($tweet){
-        $tweet = Tweet::findOrFail($tweet);
-        return view('show')->with('tweet',$tweet);
-    }
-
-    public function search_word(Request $request){
-
+    public function search_word(Request $request)
+    {
         // 検索ワードの取得
         $search_word = $request->search_word;
         // 検索結果の取得
@@ -43,39 +37,53 @@ class TwitterController extends Controller
         // 新しく配列作成、statusesを代入する。
         $result = array();
         $result = $result_to_array["statuses"];
-
-        // $user = Auth::user();
-        // dd($user->id);
-
-        // tweet tableのリセット
-        Tweet::query()->delete();
-        foreach($result as $tweet){        
-            $tweets =  Tweet::create([
-            'tweet_id'=>$tweet["id"],
-            'tweet_user'=>$tweet["user"]["name"],
-            'tweet_avater'=>$tweet["user"]["profile_image_url_https"],
-            'tweet_body'=>$tweet["text"]
-            ]);
-        }
-        $tweets = Tweet::orderBy('created_at', 'desc')->paginate(50);
-        // $tweets = Tweet::all();
-        // dd($tweets);
-        return view('search',[
-            'tweets'=>$tweets
+        
+        // dd($result);
+        return view('search', [
+            "result" => $result
         ]);
     }
 
-    public function review($tweet){  
+        public function review($tweet){  
+            // $tweet = tweet;
 
-        return view('review')->with('tweet',$tweet);
+        return view('review',compact('tweet'));
     }
 
-    public function post_review(){
-        $review =  Review::create([
-        'tweet_id'=>$tweet["id"],
-        'tweet_user'=>$tweet["user"]["name"],
-        'tweet_avater'=>$tweet["user"]["profile_image_url_https"],
-        'tweet_body'=>$tweet["text"]
-        ]);  
+    public function post_review(Request $request,$tweet){
+        $current_user = Auth::user()->id;
+        
+        $review = Review::create([
+            'tweet_id' => $tweet,
+            'user_id' => $current_user,
+            'body' =>  $request->body
+            ]);
+        
+        // if (!$tweet==存在確認){
+        //         $tweets =  Tweet::create([
+        //             'tweet_id'=>$tweet["id"],
+        //             'tweet_user'=>$tweet["user"]["name"],
+        //             'tweet_avater'=>$tweet["user"]["profile_image_url_https"],
+        //             'tweet_body'=>$tweet["text"]
+        //             ]);
+        //     }
+            // $tweets =  Tweet::create([
+            //         'tweet_id'=>$tweet["id"],
+            //         'tweet_user'=>$tweet["user"]["name"],
+            //         'tweet_avater'=>$tweet["user"]["profile_image_url_https"],
+            //         'tweet_body'=>$tweet["text"]
+            //         ]);
+        return redirect('show_review');
+    }
+
+    public function show_review(){
+        $current_user = Auth::user()->id;
+        $reviews = Review::where('user_id',$current_user)
+        ->orderBy('created_at', 'desc')
+        ->paginate(5);
+
+        return view('show_review',[
+            "reviews"=>$reviews
+        ]);
     }
 }    
