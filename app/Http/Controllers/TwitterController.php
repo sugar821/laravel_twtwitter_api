@@ -44,35 +44,39 @@ class TwitterController extends Controller
         ]);
     }
 
-        public function review($tweet){  
-            // $tweet = tweet;
+    public function regist_tweet(Request $request){
+        $tweet = $request->tweet_id;
+        $name = $request->name;
+        $text = $request->text;
+        $avater = $request->avater;
 
+        // tweetの存在確認後、tweetを登録
+        $registered = Tweet::where('tweet_id',$tweet)->first();
+        if (!$registered){
+                $tweets =  Tweet::create([
+                    'tweet_id'=>$tweet,
+                    'tweet_user'=>$name,
+                    'tweet_avater'=>$avater,
+                    'tweet_body'=>$text
+                    ]);
+        }
+        return view('review',compact('tweet'));
+    }
+
+    public function review($tweet){  
+            // $tweet = tweet;
         return view('review',compact('tweet'));
     }
 
     public function post_review(Request $request,$tweet){
         $current_user = Auth::user()->id;
         
+        // reviewの登録
         $review = Review::create([
             'tweet_id' => $tweet,
             'user_id' => $current_user,
             'body' =>  $request->body
             ]);
-        
-        // if (!$tweet==存在確認){
-        //         $tweets =  Tweet::create([
-        //             'tweet_id'=>$tweet["id"],
-        //             'tweet_user'=>$tweet["user"]["name"],
-        //             'tweet_avater'=>$tweet["user"]["profile_image_url_https"],
-        //             'tweet_body'=>$tweet["text"]
-        //             ]);
-        //     }
-            // $tweets =  Tweet::create([
-            //         'tweet_id'=>$tweet["id"],
-            //         'tweet_user'=>$tweet["user"]["name"],
-            //         'tweet_avater'=>$tweet["user"]["profile_image_url_https"],
-            //         'tweet_body'=>$tweet["text"]
-            //         ]);
         return redirect('show_review');
     }
 
