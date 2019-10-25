@@ -86,6 +86,7 @@ class TwitterController extends Controller
         ->orderBy('created_at', 'desc')
         ->paginate(5);
 
+        // $reviews = Review::table('reviews')->leftjoin('tweets','reviews.tweet_id','=','tweet_id');
         return view('show_review',[
             "reviews"=>$reviews
         ]);
