@@ -17,7 +17,7 @@
                     <div class="media-body">
                         <h5 class="d-inline mr-3"><strong>{{ $tweet["user"]["name"] }}</strong></h5>
                         <h6 class="d-inline text-secondary">{{ date('Y/m/d H:i', strtotime($tweet["created_at"])) }}</h6>
-                        <p class="mt-3 mb-0">{{ $tweet["text"] }}</p>
+                        <p class="mt-3 mb-0">{!! nl2br(e($tweet["text"])) !!}</p>
                         <form method="post" action="{{ url('/regist_tweet') }}">
                         {{ csrf_field() }}
                         <p><input type="hidden" name="tweet_id" value={{$tweet['id']}}></p>

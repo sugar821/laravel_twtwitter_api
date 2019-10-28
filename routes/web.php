@@ -11,6 +11,7 @@ Route::get('auth/twitter/callback', 'Auth\TwitterController@handleProviderCallba
 Route::get('auth/twitter/logout', 'Auth\TwitterController@logout');
 // tweet登録
 Route::post('/regist_tweet','TwitterController@regist_tweet');
+Route::get('/regist_tweet','TwitterController@regist_tweet');
 
 // review
 Route::get('review/{tweet}','ReviewController@review');

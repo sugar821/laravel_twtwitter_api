@@ -8,6 +8,7 @@ use Abraham\TwitterOAuth\TwitterOAuth;
 use Auth;
 use App\Review;
 use App\Tweet;
+use App\Http\Requests\ReviewRequest;
 
 class ReviewController extends Controller
 {
@@ -16,7 +17,7 @@ class ReviewController extends Controller
         return view('review',compact('tweet'));
     }
 
-    public function post_review(Request $request,$tweet){
+    public function post_review(ReviewRequest $request,$tweet){
         $current_user = Auth::user()->id;
         // reviewの登録
         $review = Review::create([
@@ -30,7 +31,7 @@ class ReviewController extends Controller
     public function show_review(){
         $current_user = Auth::user()->id;
         $reviews = Review::where('user_id',$current_user)
-        ->orderBy('created_at', 'desc')
+        ->orderBy('updated_at', 'desc')
         ->paginate(5);
 
         return view('show_review',[
@@ -39,14 +40,15 @@ class ReviewController extends Controller
     }
 
     public function edit($review){
-        $review = Review::where('id',$review)->get();
-        return view('edit_review',compact('review'));
+        // review取得
+        $review = Review::findOrFail($review);
+        // dd($review);
+        return view('edit_review')->with('review',$review);
     }
 
-    public function update(Request $request,Reeview $review){
-        dd($review);
+    public function update(ReviewRequest $request,Review $review){
         $review->body = $request->body;
-        $review->save;
-        return redirect('/');
+        $review->save();
+        return redirect('show_review');
     }
 }    
