@@ -13,8 +13,8 @@ class TwitterController extends Controller
 {
     public function index(Request $request)
     {
-        //ツイートを50件取得
-        $result = \Twitter::get('statuses/home_timeline', array("count" => 50));
+        //ツイートを50件取得、RTを除く
+        $result = \Twitter::get('statuses/home_timeline', array("count" => 50, 'exclude'=> "retweets","result_type"=> "recent"));
         // dd($result);
         return view('twitter', [
             "result" => $result
@@ -28,7 +28,7 @@ class TwitterController extends Controller
     {
         // 検索ワードの取得
         $search_word = $request->search_word;
-        // 検索結果の取得
+        // 検索結果の取得、RTを除く
         $result = \Twitter::get('search/tweets', array('q' => $search_word, 'count' => 50, 'exclude'=> "retweets","result_type"=> "recent"));
         
         // object->arrayへの変換
@@ -60,35 +60,9 @@ class TwitterController extends Controller
                     'tweet_body'=>$text
                     ]);
         }
-        return view('review',compact('tweet'));
-    }
-
-    public function review($tweet){  
-            // $tweet = tweet;
-        return view('review',compact('tweet'));
-    }
-
-    public function post_review(Request $request,$tweet){
-        $current_user = Auth::user()->id;
-        
-        // reviewの登録
-        $review = Review::create([
-            'tweet_id' => $tweet,
-            'user_id' => $current_user,
-            'body' =>  $request->body
-            ]);
-        return redirect('show_review');
-    }
-
-    public function show_review(){
-        $current_user = Auth::user()->id;
-        $reviews = Review::where('user_id',$current_user)
-        ->orderBy('created_at', 'desc')
-        ->paginate(5);
-
-        // $reviews = Review::table('reviews')->leftjoin('tweets','reviews.tweet_id','=','tweet_id');
-        return view('show_review',[
-            "reviews"=>$reviews
+        return view('review',
+        ['tweet'=>$tweet
         ]);
+        
     }
 }    

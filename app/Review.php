@@ -11,7 +11,7 @@ class Review extends Model
 
     //review->tweet
     public function tweet(){
-        return $this->belongsTo('App\Tweet');
+        return $this->belongsTo('App\Tweet', 'tweet_id', 'tweet_id');
     }
     //review->user
     public function user(){

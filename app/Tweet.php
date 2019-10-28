@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tweet extends Model
 {
+
+    protected $primarykey = "tweet_id";
+    
     //書き込みができるようにする
     protected $fillable = ["tweet_id","tweet_user","tweet_avater","tweet_body"];
 
@@ -14,6 +17,6 @@ class Tweet extends Model
     }
 
     public function favorites(){
-        return $this->hasManany('App\Favorite');
+        return $this->hasManany('App\Favorite','tweet_id');
     }
 }

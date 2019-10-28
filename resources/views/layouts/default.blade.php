@@ -23,19 +23,20 @@
       <li class="nav-item active">
         <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/auth/twitter">login</a>
-      </li>
-      @if( Auth::check() )
-        <li class="nav-item">
-          <a class="nav-link" href="/auth/twitter/logout">logout</a>
-        </li>
+      @if( Auth::check() )   
         <li class="nav-item">
           <a class="nav-link" href="{{ action('TwitterController@search') }}">search</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ action('TwitterController@show_review') }}">review</a>
-      </li>
+          <a class="nav-link" href="{{ action('ReviewController@show_review') }}">review</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/auth/twitter/logout">logout</a>
+        </li>
+      @else
+        <li class="nav-item">
+          <a class="nav-link" href="/auth/twitter">login</a>
+        </li>
       @endif
     </ul>
   </div>

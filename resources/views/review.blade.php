@@ -1,10 +1,11 @@
 @extends('layouts.default')
 
 @section('content')
-post
-<form method="post" action="{{ action('TwitterController@post_review', $tweet) }}">
+
+<form method="post" action="{{ action('ReviewController@post_review', $tweet) }}">
     {{ csrf_field() }}
-    <p><textarea name="body" id="body" placeholder="body"></textarea></p>
-    <p><input type="submit" value="review"></p>
-  </form>
+    <label class="control-label">コメント</label>
+    <p><textarea class="form-control" name="body" id="body" placeholder="body"></textarea></p>
+    <p><input type="submit" class="btn btn-primary" value="送信"></p>
+</form>
 @endsection
