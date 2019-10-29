@@ -51,4 +51,10 @@ class ReviewController extends Controller
         $review->save();
         return redirect('show_review');
     }
+
+    public function destroy(Review $review){
+        $review->delete();
+        return redirect('show_review');
+        // return redirect()->back();
+    }    
 }    

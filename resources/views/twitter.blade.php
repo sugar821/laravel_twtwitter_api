@@ -1,7 +1,8 @@
 @extends('layouts.default')
 
 @section('content')
-    @foreach ($result as $tweet)
+    home
+    <!-- @foreach ($result as $tweet)
         <div class="card mb-2 mx-5">
             <div class="card-body">
                 <div class="media">
@@ -27,5 +28,5 @@
                 </div>
             </div>
         </div>
-    @endforeach
+    @endforeach -->
 @endsection

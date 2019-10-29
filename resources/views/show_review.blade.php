@@ -15,16 +15,22 @@
                                 <h5 class="d-inline mr-3"><strong>{{ $review->user->name }}</strong> のコメント</h5>
                                 <h6 class="mt-3 mb-0"><strong>{{ $review->body }}</strong></p>
                                 <a href="{{ action('ReviewController@edit', $review->id) }}">[edit]</a>
-                                |
-                                <a>[delete]</a>
+                                <a href="#" class="del" data-id="{{$review->id}}">[del]</a>
+                                <form method = "post" action ="{{ action('ReviewController@destroy', $review->id) }}" id="form_{{$review->id}}">    
+                                {{ method_field('delete') }}
+                                {{ csrf_field() }}
+                                </form>
                         </div>
                     </div>
                 </div>
             </div>
         @endforeach
-        {{ $reviews->links() }}
+        <div class="d-flex flex-row justify-content-end">
+            {{ $reviews->links() }}
+        </div>
         @if(count($reviews)==0)
-            <p>no result</p>
+            <p>not commented</p>
         @endif
     @endif
+<script src="/js/main.js"></script>
 @endsection

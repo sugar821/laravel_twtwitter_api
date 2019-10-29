@@ -13,13 +13,14 @@ class TwitterController extends Controller
 {
     public function index(Request $request)
     {
-        //ツイートを50件取得、RTを除く
+        //ツイートを50件取得
         $result = \Twitter::get('statuses/home_timeline', array("count" => 50, 'exclude'=> "retweets","result_type"=> "recent"));
         // dd($result);
         return view('twitter', [
             "result" => $result
         ]);
     }
+
     public function search(){
         return view('search');
     }
@@ -50,7 +51,7 @@ class TwitterController extends Controller
         $text = $request->text;
         $avater = $request->avater;
 
-        // tweetの存在確認後、tweetを登録
+        // tweetの存在確認、未登録ならtweetを登録
         $registered = Tweet::where('tweet_id',$tweet)->first();
         if (!$registered){
                 $tweets =  Tweet::create([
@@ -65,4 +66,5 @@ class TwitterController extends Controller
         ]);
         
     }
+
 }    
