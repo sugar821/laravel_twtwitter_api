@@ -27,8 +27,17 @@ class TwitterController extends Controller
 
     public function search_word(Request $request)
     {
+        
         // 検索ワードの取得
         $search_word = $request->search_word;
+
+        // 検索ワードが空でないかをチェック、空ならメッセージを出力する
+        if ($search_word == null){
+            $msg="検索ワードを入力してください";
+            return view('/search',[
+                    "msg" => $msg
+            ]);
+        }
         // 検索結果の取得、RTを除く
         $result = \Twitter::get('search/tweets', array('q' => $search_word, 'count' => 50, 'exclude'=> "retweets","result_type"=> "recent"));
         
@@ -38,8 +47,16 @@ class TwitterController extends Controller
         // 新しく配列作成、statusesを代入する。
         $result = array();
         $result = $result_to_array["statuses"];
+
+        // 検索結果が0でないかをチェック、0ならメッセージを出力する
+        if (count($result)==0){
+            $msg="検索結果がありませんでした";
+            return view('/search',[
+                    "msg" => $msg
+            ]);
+        }
         
-        // dd($result);
+        
         return view('search', [
             "result" => $result
         ]);
@@ -50,7 +67,7 @@ class TwitterController extends Controller
         $name = $request->name;
         $text = $request->text;
         $avater = $request->avater;
-
+        dd($request->text);
         // tweetの存在確認、未登録ならtweetを登録
         $registered = Tweet::where('tweet_id',$tweet)->first();
         if (!$registered){
@@ -61,10 +78,8 @@ class TwitterController extends Controller
                     'tweet_body'=>$text
                     ]);
         }
-        return view('review',
-        ['tweet'=>$tweet
-        ]);
+
+        return redirect()->route('review',['tweet'=>$tweet]);
         
     }
-
 }    

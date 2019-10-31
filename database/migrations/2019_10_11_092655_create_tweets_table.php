@@ -17,7 +17,7 @@ class CreateTweetsTable extends Migration
             $table->integer('tweet_id')->unsigned()->unique();
             $table->text('tweet_avater');
             $table->text('tweet_user');
-            $table->text('tweet_body');
+            $table->string('tweet_body');
             $table->timestamps();
         });
     }

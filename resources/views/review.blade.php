@@ -11,4 +11,5 @@
     @endif
     <p><input type="submit" class="btn btn-primary" value="送信"></p>
 </form>
+<a href="{{ action('TwitterController@search_word') }}">戻る</a>
 @endsection

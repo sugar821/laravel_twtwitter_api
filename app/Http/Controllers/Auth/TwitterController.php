@@ -32,7 +32,7 @@ class TwitterController extends Controller
             ]);
         }
         Auth::login($user);
-        return redirect('/');
+        return redirect('/search');
     }
 
     // ログアウト
