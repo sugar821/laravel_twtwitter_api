@@ -67,7 +67,7 @@ class TwitterController extends Controller
         $name = $request->name;
         $text = $request->text;
         $avater = $request->avater;
-        dd($request->text);
+        // dd($request->text);
         // tweetの存在確認、未登録ならtweetを登録
         $registered = Tweet::where('tweet_id',$tweet)->first();
         if (!$registered){
