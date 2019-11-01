@@ -29,7 +29,7 @@
             {{ $reviews->links() }}
         </div>
         @if(count($reviews)==0)
-            <p>not commented</p>
+            <p>no review yet</p>
         @endif
     @endif
 <script src="/js/main.js"></script>

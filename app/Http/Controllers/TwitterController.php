@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use App\Http\Controllers\Controller;
 use Abraham\TwitterOAuth\TwitterOAuth;
 use Auth;
@@ -47,7 +48,6 @@ class TwitterController extends Controller
         // 新しく配列作成、statusesを代入する。
         $result = array();
         $result = $result_to_array["statuses"];
-
         // 検索結果が0でないかをチェック、0ならメッセージを出力する
         if (count($result)==0){
             $msg="検索結果がありませんでした";
@@ -55,8 +55,24 @@ class TwitterController extends Controller
                     "msg" => $msg
             ]);
         }
+
+        // ---------------------------------test---------------------------------
+        // paginate実装できてない　参考qiita
+        // https://qiita.com/wallkickers/items/35d13a62e0d53ce05732#_reference-f177618590fa5e32dfed
+        // $result = array_slice($result,0,10);
         
-        
+        $result = new LengthAwarePaginator(
+            $result = array_slice($result,0,10),
+            count($result),
+            10,
+            $request->page,
+            array('path' => $request->url())
+        );
+
+        // dump($result);
+        // dd($request->page);
+
+        // ---------------------------------test---------------------------------
         return view('search', [
             "result" => $result
         ]);

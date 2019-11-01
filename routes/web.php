@@ -1,6 +1,6 @@
 <?php
 
-Route::get('/', 'TwitterController@index');
+Route::get('/', 'HomeController@index');
 
 // ログインURL
 Route::get('auth/twitter', 'Auth\TwitterController@redirectToProvider')
@@ -26,3 +26,6 @@ Route::group(['middleware' => 'auth'], function() {
   Route::patch('/edit/{review}', 'ReviewController@update');
   Route::delete('/edit/{review}', 'ReviewController@destroy');
 });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
