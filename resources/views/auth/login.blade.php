@@ -51,14 +51,19 @@
                             </div>
                         </div>
 
-                        <div class="form-group row mb-0">
+                        <div class="form-group row">
                             <div class="col-md-8 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Login') }}
                                 </button>
                         <div class="form-group row">
-                            <div class="col-md-6">
-                                <a class="btn btn-primary mt-2" href="/auth/twitter">login with twitter</a>
+                            <div class="col-md-8 mt-2">
+                                <a class="btn btn-info " href="/auth/twitter">login with twitter</a>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <a class="btn btn-success" href="/regist">regist account</a>
                             </div>
                         </div>
 
