@@ -63,7 +63,7 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-md-8">
-                                <a class="btn btn-success" href="/regist">regist account</a>
+                                <a class="btn btn-success" href="/register">regist account</a>
                             </div>
                         </div>
 
