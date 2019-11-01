@@ -21,14 +21,15 @@ $app = new Illuminate\Foundation\Application(
 |--------------------------------------------------------------------------
 */
 
-switch ($_SERVER['SERVER_NAME'] ?? 'localhost') {
-    case 'development.co.jp':
+switch ($_SERVER['SERVER_NAME']){
+    case '127.0.0.1':
         $app->loadEnvironmentFrom('.env');
         break;
-    case 'production.co.jp':
+    case 'http://nagata-portfolio2.herokuapp.com/':
         $app->loadEnvironmentFrom('.env.product');
         break;
 }
+
 /*
 |--------------------------------------------------------------------------
 | Bind Important Interfaces
