@@ -25,10 +25,11 @@ switch ($_SERVER['SERVER_NAME']){
     case '127.0.0.1':
         $app->loadEnvironmentFrom('.env');
         break;
-    case 'http://nagata-portfolio2.herokuapp.com':
+    case 'http://nagata-portfolio2.herokuapp.com/':
         $app->loadEnvironmentFrom('.env.product');
         break;
 }
+
 /*
 |--------------------------------------------------------------------------
 | Bind Important Interfaces
