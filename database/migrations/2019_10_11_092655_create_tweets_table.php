@@ -25,7 +25,7 @@ class CreateTweetsTable extends Migration
             break;
         default:
             Schema::create('tweets', function (Blueprint $table) {
-            $table->biginteger('tweet_id')->unsigned()->unique();
+            $table->bigint('tweet_id')->unsigned()->unique();
             $table->text('tweet_avater');
             $table->text('tweet_user');
             $table->string('tweet_body');
