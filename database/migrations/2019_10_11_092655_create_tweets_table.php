@@ -11,7 +11,7 @@ class CreateTweetsTable extends Migration
      *
      * @return void
      */
-    public function up()
+    // public function up()
     // {
     //     Schema::create('tweets', function (Blueprint $table) {
     //         $table->integer('tweet_id')->unsigned()->unique();
