@@ -21,7 +21,7 @@ $app = new Illuminate\Foundation\Application(
 |--------------------------------------------------------------------------
 */
 
-switch ($_SERVER['SERVER_NAME'] ?? 'localhost') {
+switch ($_SERVER['SERVER_NAME'] ?? '127.0.0.1') {
     case '127.0.0.1':
         $app->loadEnvironmentFrom('.env');
         break;
