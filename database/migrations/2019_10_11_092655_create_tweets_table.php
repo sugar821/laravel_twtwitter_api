@@ -14,7 +14,7 @@ class CreateTweetsTable extends Migration
     public function up()
     {
         Schema::create('tweets', function (Blueprint $table) {
-            $table->numeric('tweet_id')->unsigned()->unique();
+            $table->string('tweet_id')->unsigned()->unique();
             $table->text('tweet_avater');
             $table->text('tweet_user');
             $table->string('tweet_body');
