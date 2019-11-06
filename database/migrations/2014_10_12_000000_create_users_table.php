@@ -13,7 +13,9 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        switch ($_SERVER['SERVER_NAME'] ?? '127.0.0.1') {
+        case '127.0.0.1':
+            Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('email')->unique()->nullable();
@@ -24,8 +26,21 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+            break;
+        default:
+            Schema::create('users', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('name');
+            $table->string('email')->unique()->nullable();
+            $table->bigint('twitter_id')->nullable();
+            $table->string('avatar')->nullable();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password')->nullable();
+            $table->rememberToken();
+            $table->timestamps();
+        });
+        }
     }
-
     /**
      * Reverse the migrations.
      *
