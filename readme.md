@@ -8,5 +8,4 @@
 - 言語：php 7.3.8
 - フレームワーク：laravel 6.2.0
 - DB：sqlite3
-- デプロイ：heroku
 - PC：MacOS
